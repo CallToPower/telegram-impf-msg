@@ -19,7 +19,7 @@ import telegram
 from lib.GracefulKiller import GracefulKiller
 
 IDLE_SLEEP_S = 30
-config_impfzentren_str = 'impfzentren_config_private.json'
+config_impfzentren_str = 'impfzentren_config.json'
 
 def init_logger():
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
