@@ -1,0 +1,24 @@
+{
+    "resultList": [
+        {
+            "vaccinationCenterPk": 123,
+            "name": "<Name>",
+            "streetName": "<Strassenname>",
+            "streetNumber": "<Hausnummer>",
+            "zipcode": "<ZipCode>",
+            "city": "<Stadt>",
+            "scheduleSaturday": true,
+            "scheduleSunday": true,
+            "vaccinationCenterType": 0,
+            "vaccineName": "BioNtech",
+            "vaccineType": "mRNA",
+            "interval1to2": 42,
+            "offsetStart2Appointment": 0,
+            "offsetEnd2Appointment": 10,
+            "distance": 25,
+            "outOfStock": true,
+            "publicAppointment": true
+        }
+    ],
+    "succeeded": true
+}

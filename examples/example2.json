@@ -1,0 +1,27 @@
+{
+    "resultList": [
+        {
+            "vaccinationCenterPk": 123,
+            "name": "<Name>",
+            "streetName": "<Strassenname>",
+            "streetNumber": "<Hausnummer>",
+            "zipcode": "<ZipCode>",
+            "city": "<Stadt>",
+            "scheduleSaturday": true,
+            "scheduleSunday": true,
+            "vaccinationCenterType": 0,
+            "vaccineName": "Moderna",
+            "vaccineType": "mRNA",
+            "interval1to2": 42,
+            "offsetStart2Appointment": 0,
+            "offsetEnd2Appointment": 10,
+            "distance": 25,
+            "outOfStock": false,
+            "firstAppoinmentDateSorterOnline": 1623708000000,
+            "freeSlotSizeOnline": 1,
+            "maxFreeSlotPerDay": 1,
+            "publicAppointment": true
+        }
+    ],
+    "succeeded": true
+}

@@ -1,0 +1,24 @@
+[
+    {
+        "poll": true,
+        "name": "Impfzentrum Beispiel #1",
+        "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/49134?stiko=&count=1&birthdate=570672000000",
+        "telegram": {
+            "send": true,
+            "token": "<Bot1Token>",
+            "chat_id": -1
+        },
+        "main_url": "https://www.impfportal-niedersachsen.de"
+    },
+    {
+        "poll": true,
+        "name": "Impfzentrum Beispiel #2",
+        "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/49078?stiko=&count=1&birthdate=570672000000",
+        "telegram": {
+            "send": true,
+            "token": "<Bot2Token>",
+            "chat_id": -2
+        },
+        "main_url": "https://www.impfportal-niedersachsen.de"
+    }
+]
