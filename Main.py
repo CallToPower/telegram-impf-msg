@@ -89,9 +89,9 @@ if __name__ == '__main__':
                     logging.info('Polling {}...'.format(c['name']))
                     avail = is_vax_available(c['url'])
                     if avail[0]:
-                        logging.info('{} Impfungen(en) im Impfzentrum {} verfügbar - jetzt auf {} prüfen!'.format(avail[1], c['name'], c['main_url']))
+                        logging.info('{} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(avail[1], c['name'], c['main_url']))
                         if c['telegram']['send']:
-                            c['telegram']['bot'].send_message(chat_id=c['telegram']['chat_id'], text='{} Impfungen(en) im Impfzentrum {} verfügbar - jetzt auf {} prüfen!'.format(avail[1], c['name'], c['main_url']))
+                            c['telegram']['bot'].send_message(chat_id=c['telegram']['chat_id'], text='{} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(avail[1], c['name'], c['main_url']))
                     else:
                         logging.info('Nothing found...')
             sleep(IDLE_SLEEP_S)
