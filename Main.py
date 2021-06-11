@@ -6,8 +6,12 @@
 
 """Main"""
 
+__prog__ = 'telegram-impf-msg'
+__version__ = '1.0'
+
 import logging
 import sys
+import os
 from time import sleep
 
 from urllib.request import urlopen
@@ -16,13 +20,41 @@ import threading
 
 import telegram
 
+from lib.Settings import Settings
 from lib.GracefulKiller import GracefulKiller
 
 IDLE_SLEEP_S = 30
 config_impfzentren_str = 'impfzentren_config.json'
 
-def init_logger():
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+def initialize_logger(settings):
+    """Initializes the logger
+    :param settings: The settings
+    """
+    if settings.log_to_file:
+        basedir = os.path.dirname(settings.log_filename)
+
+        if not os.path.exists(basedir):
+            os.makedirs(basedir)
+
+    logger = logging.getLogger()
+    logger.setLevel(settings.log_level)
+    logger.propagate = False
+
+    logger.handlers = []
+
+    handler_console = logging.StreamHandler(sys.stdout)
+    handler_console.setLevel(settings.log_level)
+    handler_console.setFormatter(logging.Formatter(
+        fmt=settings.log_format, datefmt=settings.log_dateformat))
+    logger.addHandler(handler_console)
+
+    if settings.log_to_file:
+        handler_file = logging.FileHandler(
+            settings.log_filename, mode='w', encoding=None, delay=False)
+        handler_file.setLevel(settings.log_level)
+        handler_file.setFormatter(logging.Formatter(
+            fmt=settings.log_format, datefmt=settings.log_dateformat))
+        logger.addHandler(handler_file)
 
 
 def load_config(config_name):
@@ -61,9 +93,10 @@ def is_vax_available(url):
     return at_least_one_in_stock, nr_in_stock
 
 if __name__ == '__main__':
-    init_logger()
+    settings = Settings()
+    initialize_logger(settings)
 
-    logging.info('Successfully started.')
+    logging.info('{} starting'.format(__prog__))
 
     logging.info('Loading config')
     config = load_config(config_impfzentren_str)
@@ -106,5 +139,5 @@ if __name__ == '__main__':
             c['telegram']['bot'].send_message(chat_id=c['telegram']['chat_id'], text='Ich bin nun offline.')
     logging.info('Telegram bot(s) shut down')
 
-    logging.info('Exiting')
+    logging.info('Quitting')
     sys.exit(0)
