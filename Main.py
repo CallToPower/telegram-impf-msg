@@ -49,10 +49,10 @@ def is_vax_available(url):
         logging.debug('Got {} result(s)'.format(len(result_list)))
         for result in json_response['resultList']:
             logging.debug(result)
-            if not at_least_one_in_stock:
-                at_least_one_in_stock = (not result['outOfStock']) if 'outOfStock' in result else False
-                if at_least_one_in_stock:
-                    logging.info(result)
+            found = (not result['outOfStock']) if 'outOfStock' in result else False
+            if found:
+                logging.info(result)
+                at_least_one_in_stock = True
             nr_in_stock += result['freeSlotSizeOnline'] if 'freeSlotSizeOnline' in result else 0
     except:
         logging.error('Failed to parse JSON')
