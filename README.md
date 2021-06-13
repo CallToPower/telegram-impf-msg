@@ -37,6 +37,20 @@ Copyright (C) 2021 Denis Meyer
 * Install the required libraries
   * `pip install -r requirements.txt`
 * Configure
-  * `impfzentren_config.json`
+  * `config.json`
+  * `config_vax_center.json`
 * Run the app
   * `python Main.py`
+
+## Production
+
+* Change configs
+  * `config.json`
+  * `config_vax_center.json`
+* Install the required libraries
+  * `pip install -r requirements.txt`
+* Make start/stop scripts executable
+  * `chmod 755 -R scripts`
+* Run start/stop script
+  * `./scripts/start.sh`
+  * `./scripts/stop.sh`

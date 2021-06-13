@@ -2,7 +2,9 @@
     {
         "poll": true,
         "name": "Impfzentrum Beispiel #1",
-        "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/49134?stiko=&count=1&birthdate=570672000000",
+        "plz": "49134",
+        "birthdate": "01.01.1980",
+        "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/{}?stiko=&count=1&birthdate={}",
         "telegram": {
             "send": true,
             "token": "<Bot1Token>",
@@ -13,7 +15,9 @@
     {
         "poll": true,
         "name": "Impfzentrum Beispiel #2",
-        "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/49078?stiko=&count=1&birthdate=570672000000",
+        "plz": "49078",
+        "birthdate": "03.04.1960",
+        "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/{}?stiko=&count=1&birthdate={}",
         "telegram": {
             "send": true,
             "token": "<Bot2Token>",
