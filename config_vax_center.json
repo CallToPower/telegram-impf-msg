@@ -2,7 +2,7 @@
     {
         "poll": true,
         "name": "Impfzentrum Beispiel #1",
-        "plz": "49134",
+        "plz": "49078",
         "birthdate": "01.01.1980",
         "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/{}?stiko=&count=1&birthdate={}",
         "telegram": {
@@ -15,8 +15,8 @@
     {
         "poll": true,
         "name": "Impfzentrum Beispiel #2",
-        "plz": "49078",
-        "birthdate": "03.04.1960",
+        "plz": "49080",
+        "birthdate": "01.01.1960",
         "url": "https://www.impfportal-niedersachsen.de/portal/rest/appointments/findVaccinationCenterListFree/{}?stiko=&count=1&birthdate={}",
         "telegram": {
             "send": true,

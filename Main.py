@@ -17,7 +17,7 @@ from time import sleep
 from urllib.request import urlopen
 import json
 import threading
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 
 import telegram
 
@@ -95,7 +95,9 @@ def get_url(json_obj):
     plz = c['plz']
     birthdate_datetime = datetime.strptime(c['birthdate'], "%d.%m.%Y")
     logging.debug('Creating URL for PLZ {} and birthdate {}'.format(plz, birthdate_datetime.date()))
-    url = c['url'].format(plz, int(birthdate_datetime.timestamp() * 1000))
+    # https://stackoverflow.com/questions/8777753/converting-datetime-date-to-utc-timestamp-in-python
+    timestamp = int((birthdate_datetime - datetime(1970, 1, 1)) / timedelta(seconds=1))
+    url = c['url'].format(plz, timestamp * 1000)
     return url
 
 if __name__ == '__main__':
