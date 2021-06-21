@@ -68,28 +68,29 @@ def getJson(url, object_hook=None):
 
 def is_vax_available(url):
     logging.debug('Checking URL: {}'.format(url))
+    result_list_return = []
     try:
         json_response = getJson(url)
     except:
         logging.error('Failed to get URL')
-        return False, 0
+        return False, 0, result_list_return
     try:
         at_least_one_in_stock = False
         nr_in_stock = 0
         result_list = json_response['resultList']
         logging.debug('Got {} result(s)'.format(len(result_list)))
-        for result in json_response['resultList']:
+        for result in result_list:
             logging.debug(result)
             found = (not result['outOfStock']) if 'outOfStock' in result else False
             if found:
-                logging.info(result)
                 at_least_one_in_stock = True
+                result_list_return.append(result)
             nr_in_stock += result['freeSlotSizeOnline'] if 'freeSlotSizeOnline' in result else 0
     except:
         logging.error('Failed to parse JSON')
-        return False, 0
+        return False, 0, result_list_return
 
-    return at_least_one_in_stock, nr_in_stock
+    return at_least_one_in_stock, nr_in_stock, result_list_return
 
 def get_url(json_obj):
     plz = c['plz']
@@ -111,6 +112,12 @@ if __name__ == '__main__':
     logging.debug(config)
     logging.info('Config loaded')
 
+    logging.info('Preparing config')
+    for c in config:
+        c['nr_old'] = 0
+        c['nr'] = 0
+    logging.info('Config prepared')
+
     if settings.use_telegram:
         logging.info('Initializing telegram bot(s)')
         for c in config:
@@ -131,17 +138,27 @@ if __name__ == '__main__':
             for c in config:
                 if c['poll']:
                     logging.info('Polling {}...'.format(c['name']))
-                    avail = is_vax_available(get_url(c))
-                    if avail[0]:
-                        logging.info('{} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(avail[1], c['name'], c['main_url']))
-                        if settings.use_telegram and c['telegram']['send']:
-                            c['telegram']['bot'].send_message(chat_id=c['telegram']['chat_id'], text='{} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(avail[1], c['name'], c['main_url']))
+                    c['nr_old'] = c['nr']
+                    is_available, c['nr'], result_list = is_vax_available(get_url(c))
+                    if is_available:
+                        if c['nr'] != c['nr_old']:
+                            logging.info('{} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(c['nr'], c['name'], c['main_url']))
+                            logging.info(result_list)
+                            if settings.use_telegram and c['telegram']['send']:
+                                c['telegram']['bot'].send_message(chat_id=c['telegram']['chat_id'], text='{} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(c['nr'], c['name'], c['main_url']))
+                        else:
+                            logging.info('Still the same number of dates...')
+                            if settings.send_duplicate_nr_msg_telegram:
+                                logging.info('Immer noch {} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(c['nr'], c['name'], c['main_url']))
+                                if settings.use_telegram and c['telegram']['send']:
+                                    c['telegram']['bot'].send_message(chat_id=c['telegram']['chat_id'], text='Immer noch {} Impfungen(en) im {} verfügbar - jetzt auf {} prüfen!'.format(c['nr'], c['name'], c['main_url']))
                     else:
                         logging.info('Nothing found...')
             sleep(settings.idle_sleep_s)
         except Exception as e:
             logging.error('Something went wrong:')
             logging.error(e)
+            sleep(settings.idle_sleep_s)
     logging.info('Stopping polling')
 
     logging.info('Shutting down telegram bot(s)')

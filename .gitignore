@@ -1,4 +1,4 @@
 /venv
-impfzentren_config_private.json
+config_vax_center_private.json
 /logs
 **/*/__pycache__

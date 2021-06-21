@@ -35,6 +35,7 @@ class Settings:
 
         self.idle_sleep_s = config['idle_sleep_s']
         self.use_telegram = config['use_telegram']
+        self.send_duplicate_nr_msg_telegram = config['send_duplicate_nr_msg_telegram']
         self.config_impfzentren_str = config['config_impfzentren_str']
 
         self.log_filename = os.path.join(

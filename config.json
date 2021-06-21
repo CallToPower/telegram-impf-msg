@@ -1,6 +1,7 @@
 {
     "idle_sleep_s": 30,
     "use_telegram": true,
+    "send_duplicate_nr_msg_telegram": false,
     "config_impfzentren_str": "config_vax_center.json",
     "logging": {
         "log_to_file": true,
